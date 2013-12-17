@@ -6,3 +6,14 @@ Suppose we have to traverse in someone's network - Friends, Friends of Friends (
 Let's say we want to do an optimized search, where you know the destination node (here, a person living in California). How will you reduce the complexity of the problem? 
 
 The program you submit should return the degree by which that person is connected to you. [where the 'destination node' is your Degree 1st (Friend), or 2nd (friend of friend) or 3rd Degree (FoFoF) or a Degree greater than 3rd degree].
+
+Idea
+======
+Use Breadth-First-Search to scan all your immidiate connections. Check each one if its the target, continue with all your degree 2 connection, and so on, till you find the target person.
+
+Usage
+======
+
+    $ git clone https://github.com/anoopelias/degree.git
+    $ mvn clean test
+    
