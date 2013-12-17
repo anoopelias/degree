@@ -1,10 +1,22 @@
 package degree;
 
+/**
+ * Edge data structure.
+ * 
+ * @author anoopelias
+ *
+ */
 public class Edge {
 	
 	private int from;
 	private int to;
 	
+	/**
+	 * Initialize Edge with a from and to.
+	 * 
+	 * @param from
+	 * @param to
+	 */
 	public Edge(int from, int to) {
 		this.from = from;
 		this.to = to;
@@ -39,17 +51,26 @@ public class Edge {
 		return false;
 	}
 	
+	/**
+	 * To get any one vertex on the edge.
+	 * 
+	 * @return any one of the vertices on the edge.
+	 */
 	public int either() {
 		return from;
 	}
 	
+	/**
+	 * To get the other vertex on the edge given one.
+	 * 
+	 * @param v
+	 * @return 
+	 */
 	public int other(int v) {
 		if(from == v)
 			return to;
 		
 		return from;
 	}
-	
-	
 
 }

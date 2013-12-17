@@ -22,6 +22,11 @@ public class Graph {
 
     private List<Set<Edge>> adjacencyList;
 
+    /**
+     * Initialize graph with the number of vertices.
+     * 
+     * @param n
+     */
     public Graph(int n) {
         this.n = n;
         init();
@@ -29,11 +34,18 @@ public class Graph {
 
     private void init() {
         adjacencyList = new ArrayList<Set<Edge>>();
-        for(int i=0; i<this.n; i++) {
+        for (int i = 0; i < this.n; i++) {
             adjacencyList.add(new HashSet<Edge>());
         }
     }
 
+    /**
+     * Initialize graph from an input stream.
+     * 
+     * @param is
+     * @throws NumberFormatException
+     * @throws IOException
+     */
     public Graph(InputStream is) throws NumberFormatException, IOException {
 
         BufferedReader reader = null;
@@ -42,7 +54,7 @@ public class Graph {
             reader = new BufferedReader(new InputStreamReader(is));
             this.n = Integer.parseInt(reader.readLine());
             init();
-            
+
             int c = Integer.parseInt(reader.readLine());
             for (int i = 0; i < c; i++) {
                 StringTokenizer st = new StringTokenizer(reader.readLine());
@@ -57,31 +69,59 @@ public class Graph {
         }
 
     }
-    
+
+    /**
+     * Number of indices on the graph.
+     * 
+     * @return
+     */
     public int n() {
         return n;
     }
 
+    /**
+     * Get all the adjacent edges of a given vertex.
+     * 
+     * @param v
+     * @return
+     */
     public Set<Edge> adj(int v) {
         return adjacencyList.get(v);
     }
-    
+
+    /**
+     * Get all the edges.
+     * 
+     * @return
+     */
     public Set<Edge> edges() {
         Set<Edge> allEdges = new HashSet<Edge>();
-        for(Set<Edge> s : adjacencyList)
+
+        // All duplicate edges will be eliminated as we are adding it to a set.
+        for (Set<Edge> s : adjacencyList)
             allEdges.addAll(s);
-        
+
         return allEdges;
     }
 
+    /**
+     * Add an edge to the graph.
+     * 
+     * @param e
+     * @return
+     */
     public boolean addEdge(Edge e) {
         int from = e.either();
         int to = e.other(from);
-        
+
         adjacencyList.get(from).add(e);
         return adjacencyList.get(to).add(e);
     }
 
+    /**
+     * Print the graph to console.
+     * 
+     */
     public void print() {
         System.out.println(n);
         Set<Edge> edges = edges();
@@ -90,6 +130,5 @@ public class Graph {
             System.out.println(e.either() + " " + e.other(e.either()));
         }
     }
-    
 
 }

@@ -2,58 +2,76 @@ package degree;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.HashMap;
-import java.util.Map;
 
+/**
+ * An implementation of Degree using Breadth-First-Search.
+ * 
+ * @author anoopelias
+ *
+ */
 public class DegreeBFS {
     
     private Graph g;
     
-    private Deque<Integer> q;
-    Map<Integer, Integer> degreeMap;
+    private Deque<Node> q;
     boolean[] marked;
     
+    /**
+     * Initialize with graph g.
+     * 
+     * @param g
+     */
     public DegreeBFS(Graph g) {
         this.g = g;
     }
     
+    /**
+     * Return the degree between u and v on the graph g.
+     * 
+     * @param u
+     * @param v
+     * @return
+     */
     public int degree(int u, int v) {
-        q = new ArrayDeque<Integer>();
-        degreeMap = new HashMap<Integer, Integer>();
+        int degree = -1;
+
+        q = new ArrayDeque<Node>();
         marked = new boolean[g.n()];
-        
-        q.addLast(u);
-        degreeMap.put(u, 0);
+        q.addLast(new Node(u, 0));
         
         while(!q.isEmpty()) {
-            int vertex = q.pollFirst();
-            if(!marked[vertex]) {
-                addNeighbours(vertex);
-                marked[vertex] = true;
+            Node n = q.pollFirst();
+            
+            if(n.index == v) {
+                // Found v
+                degree = n.degree;
+                break;
             }
             
-            if(degreeMap.containsKey(v))
-                break;
+            if(!marked[n.index]) {
+                addNeighbours(n);
+                marked[n.index] = true;
+            }
         }
         
-        if(degreeMap.containsKey(v))
-            return degreeMap.get(v);
-        
-        return -1;
+        return degree;
     }
 
-    private void addNeighbours(int vertex) {
-        int degree = degreeMap.get(vertex);
-        for(Edge e: g.adj(vertex)) {
-            int otherVertex = e.other(vertex);
-            updateDegree(otherVertex, degree + 1);
-            q.addLast(otherVertex);
+    private void addNeighbours(Node n) {
+        for(Edge e: g.adj(n.index)) {
+            int otherVertex = e.other(n.index);
+            q.addLast(new Node(otherVertex, n.degree + 1));
         }
     }
 
-    private void updateDegree(int otherVertex, int degree) {
-        if(!degreeMap.containsKey(otherVertex))
-            degreeMap.put(otherVertex, degree);
+    private class Node {
+        int index;
+        int degree;
+        
+        Node(int index, int degree) {
+            this.index = index;
+            this.degree = degree;
+        }
     }
 
 }

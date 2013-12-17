@@ -15,7 +15,10 @@ import org.junit.Test;
 
 public class GraphTest {
     
-	@Test
+	//@Test
+    /*
+     * Use this method to generate a graph randomly.
+     */
     public void test_generate_graph() {
 		
     	int n = 5000;
