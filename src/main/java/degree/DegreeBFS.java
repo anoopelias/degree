@@ -13,9 +13,6 @@ public class DegreeBFS {
 
     private Graph g;
 
-    private Deque<Node> q;
-    boolean[] marked;
-
     /**
      * Initialize with graph g.
      * 
@@ -33,8 +30,8 @@ public class DegreeBFS {
      * @return
      */
     public int degree(int u, int v) {
-        q = new ArrayDeque<Node>();
-        marked = new boolean[g.n()];
+        Deque<Node> q = new ArrayDeque<Node>();
+        boolean[] marked = new boolean[g.n()];
         q.addLast(new Node(u, 0));
 
         while (!q.isEmpty()) {
