@@ -15,5 +15,6 @@ Usage
 ======
 
     $ git clone https://github.com/anoopelias/degree.git
+    $ cd degree
     $ mvn clean test
     
