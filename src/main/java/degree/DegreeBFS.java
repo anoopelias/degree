@@ -33,8 +33,6 @@ public class DegreeBFS {
      * @return
      */
     public int degree(int u, int v) {
-        int degree = -1;
-
         q = new ArrayDeque<Node>();
         marked = new boolean[g.n()];
         q.addLast(new Node(u, 0));
@@ -42,11 +40,8 @@ public class DegreeBFS {
         while(!q.isEmpty()) {
             Node n = q.pollFirst();
             
-            if(n.index == v) {
-                // Found v
-                degree = n.degree;
-                break;
-            }
+            if(n.index == v)
+                return n.degree;
             
             if(!marked[n.index]) {
                 addNeighbours(n);
@@ -54,7 +49,7 @@ public class DegreeBFS {
             }
         }
         
-        return degree;
+        return -1;
     }
 
     private void addNeighbours(Node n) {
